@@ -1,13 +1,15 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { useWizard } from '@/context/WizardContext';
 import { useState, useEffect } from 'react';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
+import { Loader2 } from 'lucide-react';
+import { RoadmapView } from '../roadmap/RoadmapView';
 
 const steps = [
   {
@@ -74,10 +76,13 @@ export function WizardForm() {
     currentStep,
     isFinished,
     userData,
+    roadmapData,
+    isLoading,
     nextStep,
     prevStep,
     updateUserData,
-    completeWizard
+    completeWizard,
+    generateRoadmap
   } = useWizard();
 
   const [inputValue, setInputValue] = useState('');
@@ -120,26 +125,51 @@ export function WizardForm() {
 
   if (isFinished) {
     return (
-      <Card className="w-full max-w-2xl mx-auto">
-        <CardHeader>
-          <CardTitle>Validation Complete! 🎉</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {steps.map(step => (
-              <div key={step.id} className="space-y-1">
-                <h3 className="font-medium">{step.title}</h3>
-                <p className="text-muted-foreground">
-                  {userData[step.field as keyof typeof userData] || 'Not specified'}
-                </p>
+      <div className="w-full max-w-3xl mx-auto space-y-8">
+        <Card>
+          <CardHeader>
+            <CardTitle>Validation Complete! 🎉</CardTitle>
+            <CardDescription>
+              We've analyzed your profile. {!roadmapData && 'Click the button below to generate your personalized roadmap.'}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-6">
+              <div className="grid gap-4 md:grid-cols-2">
+                {steps.map(step => (
+                  <div key={step.id} className="space-y-1">
+                    <h4 className="text-sm font-medium text-muted-foreground">{step.title}</h4>
+                    <p>
+                      {userData[step.field as keyof typeof userData] || 'Not specified'}
+                    </p>
+                  </div>
+                ))}
               </div>
-            ))}
-            <div className="pt-4">
-              <Button onClick={() => window.location.reload()}>Start Over</Button>
+              
+              {!roadmapData && (
+                <div className="pt-4">
+                  <Button 
+                    onClick={generateRoadmap} 
+                    disabled={isLoading}
+                    className="w-full sm:w-auto"
+                  >
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Generating...
+                      </>
+                    ) : (
+                      'Generate My Roadmap'
+                    )}
+                  </Button>
+                </div>
+              )}
             </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+
+        {roadmapData && <RoadmapView />}
+      </div>
     );
   }
 
