@@ -44,18 +44,18 @@ export default async function DashboardPage() {
       </div>
 
       {roadmaps && roadmaps.length > 0 ? (
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-5 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
           {roadmaps.map((r: RoadmapRow) => (
             <Link key={r.id} href={`/dashboard/${r.id}`} className="block">
-              <Card className="flex h-full flex-col justify-between transition hover:-translate-y-0.5 hover:shadow-md">
-                <CardHeader>
-                  <CardTitle className="line-clamp-2 text-sm font-semibold">{r.title}</CardTitle>
+              <Card className="flex h-full min-h-[160px] flex-col justify-between rounded-xl border border-zinc-200/70 bg-white px-5 py-4 shadow-sm transition hover:-translate-y-0.5 hover:border-zinc-300 hover:shadow-md dark:border-zinc-800/70 dark:bg-zinc-950/80">
+                <CardHeader className="p-0 pb-2">
+                  <CardTitle className="line-clamp-2 text-base font-semibold">{r.title}</CardTitle>
                   <CardDescription className="text-xs">
                     {r.created_at ? new Date(r.created_at).toLocaleString() : ""}
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="pt-0 text-xs text-muted-foreground">
-                  Click to revisit this AI-generated roadmap.
+                <CardContent className="p-0 pt-1 text-xs text-muted-foreground">
+                  Click to revisit this AI-generated roadmap and track your progress.
                 </CardContent>
               </Card>
             </Link>

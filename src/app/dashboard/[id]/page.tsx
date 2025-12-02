@@ -28,7 +28,12 @@ type RoadmapData = {
   roadmap: RoadmapPhase[];
 };
 
-export default async function RoadmapDetailPage({ params }: { params: { id: string } }) {
+export default async function RoadmapDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
   const supabase = await getSupabaseServerClient();
 
   const {
@@ -42,7 +47,7 @@ export default async function RoadmapDetailPage({ params }: { params: { id: stri
   const { data, error } = await supabase
     .from("roadmaps")
     .select("id, title, data, created_at, progress")
-    .eq("id", params.id)
+    .eq("id", id)
     .single();
 
   if (error || !data) {
