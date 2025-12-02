@@ -44,17 +44,18 @@ export default async function DashboardPage() {
       </div>
 
       {roadmaps && roadmaps.length > 0 ? (
-        <div className="grid gap-5 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4">
           {roadmaps.map((r: RoadmapRow) => (
             <Link key={r.id} href={`/dashboard/${r.id}`} className="block">
-              <Card className="flex h-full min-h-[160px] flex-col justify-between rounded-xl border border-zinc-200/70 bg-white px-5 py-4 shadow-sm transition hover:-translate-y-0.5 hover:border-zinc-300 hover:shadow-md dark:border-zinc-800/70 dark:bg-zinc-950/80">
+              <Card className="relative flex min-h-[180px] flex-col justify-between overflow-hidden rounded-xl border bg-white px-5 py-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-lg hover:shadow-blue-500/10 dark:border-zinc-800 dark:bg-zinc-950">
+                <div className="pointer-events-none absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-blue-600 to-purple-600" aria-hidden />
                 <CardHeader className="p-0 pb-2">
-                  <CardTitle className="line-clamp-2 text-base font-semibold">{r.title}</CardTitle>
+                  <CardTitle className="line-clamp-2 text-lg font-semibold">{r.title}</CardTitle>
                   <CardDescription className="text-xs">
                     {r.created_at ? new Date(r.created_at).toLocaleString() : ""}
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="p-0 pt-1 text-xs text-muted-foreground">
+                <CardContent className="p-0 pt-2 text-xs text-muted-foreground">
                   Click to revisit this AI-generated roadmap and track your progress.
                 </CardContent>
               </Card>

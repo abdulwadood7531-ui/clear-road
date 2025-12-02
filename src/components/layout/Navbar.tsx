@@ -42,7 +42,7 @@ export function Navbar() {
   };
 
   const isLoginPage = pathname === '/login';
-  const isActive = (href: string) => (pathname?.startsWith(href) ? 'text-foreground' : 'text-muted-foreground');
+  const isActive = (href: string) => Boolean(pathname && pathname.startsWith(href));
 
   return (
     <header className="border-b bg-white/80 backdrop-blur dark:bg-zinc-950/80">
@@ -62,13 +62,21 @@ export function Navbar() {
         <nav className="flex items-center space-x-4 text-sm">
           <Link
             href="/validate"
-            className={`hidden sm:inline-block hover:text-foreground transition-colors ${isActive('/validate')}`}
+            className={`hidden sm:inline-block transition-colors ${
+              isActive('/validate')
+                ? 'bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
           >
             Wizard
           </Link>
           <Link
             href="/dashboard"
-            className={`hidden sm:inline-block hover:text-foreground transition-colors ${isActive('/dashboard')}`}
+            className={`hidden sm:inline-block transition-colors ${
+              isActive('/dashboard')
+                ? 'bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
           >
             Dashboard
           </Link>
@@ -78,7 +86,7 @@ export function Navbar() {
             </Button>
           )}
           {!loading && !user && !isLoginPage && (
-            <Button size="sm" asChild>
+            <Button size="sm" className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:opacity-90" asChild>
               <Link href="/login">Login</Link>
             </Button>
           )}
