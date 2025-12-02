@@ -42,6 +42,7 @@ export function Navbar() {
   };
 
   const isLoginPage = pathname === '/login';
+  const isActive = (href: string) => (pathname?.startsWith(href) ? 'text-foreground' : 'text-muted-foreground');
 
   return (
     <header className="border-b bg-white/80 backdrop-blur dark:bg-zinc-950/80">
@@ -58,16 +59,16 @@ export function Navbar() {
           <span className="text-lg font-semibold tracking-tight">ClearRoad</span>
         </Link>
 
-        <nav className="flex items-center space-x-3 text-sm">
+        <nav className="flex items-center space-x-4 text-sm">
           <Link
             href="/validate"
-            className="hidden text-muted-foreground hover:text-foreground sm:inline-block"
+            className={`hidden sm:inline-block hover:text-foreground transition-colors ${isActive('/validate')}`}
           >
             Wizard
           </Link>
           <Link
             href="/dashboard"
-            className="hidden text-muted-foreground hover:text-foreground sm:inline-block"
+            className={`hidden sm:inline-block hover:text-foreground transition-colors ${isActive('/dashboard')}`}
           >
             Dashboard
           </Link>
