@@ -41,10 +41,9 @@ export default async function RoadmapDetailPage({ params }: { params: { id: stri
 
   const { data, error } = await supabase
     .from("roadmaps")
-    .select("id, title, data, created_at, user_id, progress")
+    .select("id, title, data, created_at, progress")
     .eq("id", params.id)
-    .eq("user_id", user.id)
-    .maybeSingle();
+    .single();
 
   if (error || !data) {
     notFound();
