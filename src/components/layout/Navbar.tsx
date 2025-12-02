@@ -57,18 +57,16 @@ export function Navbar() {
           >
             Wizard
           </Link>
+          <Link
+            href="/dashboard"
+            className="hidden text-muted-foreground hover:text-foreground sm:inline-block"
+          >
+            Dashboard
+          </Link>
           {!loading && user && (
-            <>
-              <Link
-                href="/dashboard"
-                className="hidden text-muted-foreground hover:text-foreground sm:inline-block"
-              >
-                Dashboard
-              </Link>
-              <Button variant="outline" size="sm" onClick={handleSignOut}>
-                Sign out
-              </Button>
-            </>
+            <Button variant="outline" size="sm" onClick={handleSignOut}>
+              Sign out
+            </Button>
           )}
           {!loading && !user && !isLoginPage && (
             <Button size="sm" asChild>
