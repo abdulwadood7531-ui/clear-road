@@ -24,12 +24,21 @@ export const metadata: Metadata = {
     url: "https://clear-road-ai.vercel.app",
     siteName: "ClearRoad",
     type: "website",
+    images: [
+      {
+        url: "https://clear-road-ai.vercel.app/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "ClearRoad – AI-powered career roadmap preview",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "ClearRoad – AI Career Roadmaps",
     description:
       "Validate your career plan and follow a clear, AI-generated roadmap across phases, topics, and resources.",
+    images: ["https://clear-road-ai.vercel.app/opengraph-image.png"],
   },
   icons: {
     icon: "/logo.svg",
