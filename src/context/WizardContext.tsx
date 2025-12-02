@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState } from 'react';
+import { getSupabaseBrowserClient } from '@/utils/supabase/client';
 
 type UserData = {
   profession: string;
@@ -40,6 +41,7 @@ type WizardContextType = {
   completeWizard: () => void;
   resetWizard: () => void;
   generateRoadmap: () => Promise<void>;
+  saveRoadmap: () => Promise<void>;
 };
 
 const WizardContext = createContext<WizardContextType | undefined>(undefined);
@@ -114,12 +116,19 @@ export function WizardProvider({ children }: { children: React.ReactNode }) {
         throw new Error('Failed to generate roadmap');
       }
 
-      const data = await response.json();
+      const data: RoadmapData = await response.json();
       setState(prev => ({
         ...prev,
         roadmapData: data,
         isLoading: false
       }));
+
+      // Attempt to persist roadmap for logged-in users (non-blocking for UX)
+      try {
+        await saveRoadmapInternal(data);
+      } catch (err) {
+        console.error('Error saving roadmap:', err);
+      }
     } catch (error) {
       console.error('Error generating roadmap:', error);
       setState(prev => ({
@@ -131,6 +140,33 @@ export function WizardProvider({ children }: { children: React.ReactNode }) {
         },
         isLoading: false
       }));
+    }
+  };
+
+  const saveRoadmapInternal = async (data?: RoadmapData) => {
+    const roadmap = data || state.roadmapData;
+    if (!roadmap) return;
+
+    try {
+      const supabase = getSupabaseBrowserClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) return; // silently skip if not logged in
+
+      await fetch('/api/roadmaps', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: `Roadmap: ${state.userData.profession || 'Career'}`,
+          data: roadmap,
+        }),
+      });
+    } catch (error) {
+      console.error('Failed to save roadmap', error);
     }
   };
 
@@ -147,7 +183,8 @@ export function WizardProvider({ children }: { children: React.ReactNode }) {
         updateUserData,
         completeWizard,
         resetWizard,
-        generateRoadmap
+        generateRoadmap,
+        saveRoadmap: () => saveRoadmapInternal(),
       }}
     >
       {children}
