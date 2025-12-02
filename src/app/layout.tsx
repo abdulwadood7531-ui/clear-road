@@ -31,6 +31,11 @@ export const metadata: Metadata = {
     description:
       "Validate your career plan and follow a clear, AI-generated roadmap across phases, topics, and resources.",
   },
+  icons: {
+    icon: "/logo.svg",
+    shortcut: "/logo.svg",
+    apple: "/logo.svg",
+  },
 };
 
 export default function RootLayout({

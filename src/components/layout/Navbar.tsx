@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
@@ -46,7 +47,14 @@ export function Navbar() {
     <header className="border-b bg-white/80 backdrop-blur dark:bg-zinc-950/80">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 md:px-8">
         <Link href="/" className="flex items-center space-x-2">
-          <span className="h-8 w-8 rounded-full bg-gradient-to-br from-blue-600 to-purple-600" />
+          <Image
+            src="/logo.svg"
+            alt="ClearRoad logo"
+            width={32}
+            height={32}
+            className="h-8 w-8"
+            priority
+          />
           <span className="text-lg font-semibold tracking-tight">ClearRoad</span>
         </Link>
 
