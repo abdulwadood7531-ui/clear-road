@@ -22,18 +22,26 @@ export default function LoginPage() {
     e.preventDefault();
     setError(null);
     setLoading(true);
+    let authError: Error | null = null;
 
-    const fn = mode === "signin" ? supabase.auth.signInWithPassword : supabase.auth.signUp;
-
-    const { error } = await fn({
-      email,
-      password,
-    });
+    if (mode === "signin") {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      authError = error as Error | null;
+    } else {
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+      });
+      authError = error as Error | null;
+    }
 
     setLoading(false);
 
-    if (error) {
-      setError(error.message);
+    if (authError) {
+      setError(authError.message);
       return;
     }
 
