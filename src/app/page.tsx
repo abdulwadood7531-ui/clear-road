@@ -9,16 +9,18 @@ export default function Home() {
         <div className="space-y-6">
           <h1 className="text-balance text-4xl font-bold tracking-tight md:text-5xl">
             A clear career plan —
-            <span className="block">without the guesswork.</span>
+            <span className="block bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+              without the guesswork.
+            </span>
           </h1>
           <p className="max-w-xl text-balance text-lg text-muted-foreground">
             ClearRoad turns vague ambition into a concrete roadmap you can follow. Validate your plan and let AI break it into actionable phases.
           </p>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Button size="lg" asChild>
+            <Button size="lg" className="transition-transform hover:-translate-y-0.5 hover:shadow-lg hover:shadow-blue-500/20" asChild>
               <Link href="/validate">Start free</Link>
             </Button>
-            <Button size="lg" variant="outline" asChild>
+            <Button size="lg" variant="outline" className="transition-colors hover:border-blue-300 hover:bg-blue-50/50 dark:hover:bg-zinc-900" asChild>
               <Link href="#how">How it works</Link>
             </Button>
           </div>
@@ -26,21 +28,22 @@ export default function Home() {
         </div>
 
         {/* Simple preview card */}
-        <div className="rounded-2xl border bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
+        <div className="relative rounded-2xl border bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-950">
+          <div className="pointer-events-none absolute inset-0 -z-10 rounded-3xl bg-gradient-to-br from-blue-200/40 to-purple-200/40 blur-2xl" aria-hidden />
           <div className="space-y-3 text-sm">
-            <div className="flex items-center justify-between rounded-lg border bg-zinc-50 px-3 py-2 text-xs dark:border-zinc-800 dark:bg-zinc-900">
+            <div className="flex items-center justify-between rounded-lg border bg-zinc-50 px-3 py-2 text-xs transition-colors hover:border-blue-200 hover:bg-blue-50/60 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:bg-zinc-900/80">
               <span className="font-medium">Target profession</span>
               <span className="text-muted-foreground">Product Manager</span>
             </div>
-            <div className="flex items-center justify-between rounded-lg border bg-zinc-50 px-3 py-2 text-xs dark:border-zinc-800 dark:bg-zinc-900">
+            <div className="flex items-center justify-between rounded-lg border bg-zinc-50 px-3 py-2 text-xs transition-colors hover:border-blue-200 hover:bg-blue-50/60 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:bg-zinc-900/80">
               <span className="font-medium">Experience level</span>
               <span className="text-muted-foreground">Beginner</span>
             </div>
-            <div className="flex items-center justify-between rounded-lg border bg-zinc-50 px-3 py-2 text-xs dark:border-zinc-800 dark:bg-zinc-900">
+            <div className="flex items-center justify-between rounded-lg border bg-zinc-50 px-3 py-2 text-xs transition-colors hover:border-blue-200 hover:bg-blue-50/60 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:bg-zinc-900/80">
               <span className="font-medium">Time / week</span>
               <span className="text-muted-foreground">8–12 hours</span>
             </div>
-            <div className="mt-4 rounded-lg border border-dashed bg-gradient-to-br from-blue-50 to-purple-50 p-4 text-xs dark:border-zinc-800 dark:from-blue-950 dark:to-purple-950">
+            <div className="mt-4 rounded-lg border border-dashed bg-gradient-to-br from-blue-50 to-purple-50 p-4 text-xs shadow-sm transition-shadow hover:shadow-md dark:border-zinc-800 dark:from-blue-950 dark:to-purple-950">
               <p className="mb-1 font-semibold">AI Roadmap Snapshot</p>
               <p className="text-muted-foreground">Phase 1: Foundations — core concepts and key tools. 4–6 weeks.</p>
             </div>
@@ -50,15 +53,15 @@ export default function Home() {
 
       {/* How it works */}
       <section id="how" className="grid gap-6 md:grid-cols-3">
-        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
+        <div className="rounded-2xl border bg-white p-6 shadow-sm transition-all hover:-translate-y-0.5 hover:border-blue-200/70 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-950">
           <h3 className="mb-2 text-base font-semibold">1. Validate</h3>
           <p className="text-sm text-muted-foreground">Answer 5 quick questions about your goal, time, and budget.</p>
         </div>
-        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
+        <div className="rounded-2xl border bg-white p-6 shadow-sm transition-all hover:-translate-y-0.5 hover:border-blue-200/70 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-950">
           <h3 className="mb-2 text-base font-semibold">2. Generate</h3>
           <p className="text-sm text-muted-foreground">AI creates a phased roadmap with topics and tailored resources.</p>
         </div>
-        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
+        <div className="rounded-2xl border bg-white p-6 shadow-sm transition-all hover:-translate-y-0.5 hover:border-blue-200/70 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-950">
           <h3 className="mb-2 text-base font-semibold">3. Track</h3>
           <p className="text-sm text-muted-foreground">Save, revisit from your dashboard, and mark phases complete.</p>
         </div>
@@ -69,7 +72,11 @@ export default function Home() {
         <h3 className="text-sm font-medium text-muted-foreground">Popular templates</h3>
         <div className="flex flex-wrap gap-2">
           {['Product Management', 'Data Science', 'Frontend', 'UI/UX', 'Marketing'].map((t) => (
-            <Link key={t} href="/validate" className="rounded-full border px-3 py-1.5 text-xs text-foreground hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-900">
+            <Link
+              key={t}
+              href="/validate"
+              className="rounded-full border px-3 py-1.5 text-xs text-foreground transition-all hover:-translate-y-0.5 hover:border-blue-300 hover:bg-blue-50/40 dark:border-zinc-800 dark:hover:bg-zinc-900"
+            >
               {t}
             </Link>
           ))}
