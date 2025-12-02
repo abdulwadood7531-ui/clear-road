@@ -26,6 +26,7 @@ export async function POST(request: Request) {
       user_id: user.id,
       title: finalTitle,
       data,
+      progress: { completedPhases: [] },
     });
 
     if (error) {

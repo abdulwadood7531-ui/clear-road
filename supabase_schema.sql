@@ -31,6 +31,7 @@ create table if not exists public.roadmaps (
   user_id uuid not null references auth.users(id) on delete cascade,
   title text not null,
   data jsonb not null,
+  progress jsonb not null default '{}'::jsonb,
   created_at timestamptz not null default now()
 );
 

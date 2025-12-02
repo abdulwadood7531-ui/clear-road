@@ -6,6 +6,7 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { RoadmapActions } from "@/components/dashboard/RoadmapActions";
+import { RoadmapProgressSection } from "@/components/dashboard/RoadmapProgressSection";
 
 export const dynamic = "force-dynamic";
 
@@ -40,7 +41,7 @@ export default async function RoadmapDetailPage({ params }: { params: { id: stri
 
   const { data, error } = await supabase
     .from("roadmaps")
-    .select("id, title, data, created_at, user_id")
+    .select("id, title, data, created_at, user_id, progress")
     .eq("id", params.id)
     .eq("user_id", user.id)
     .maybeSingle();
@@ -50,6 +51,7 @@ export default async function RoadmapDetailPage({ params }: { params: { id: stri
   }
 
   const roadmapData = data.data as RoadmapData;
+  const progress = (data.progress as { completedPhases?: number[] } | null) ?? { completedPhases: [] };
 
   return (
     <main className="mx-auto flex max-w-5xl flex-col gap-6 px-4 pb-16 pt-10 md:px-8">
@@ -84,6 +86,11 @@ export default async function RoadmapDetailPage({ params }: { params: { id: stri
             <CardDescription>{roadmapData.feedback}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
+            <RoadmapProgressSection
+              roadmapId={data.id}
+              phases={roadmapData.roadmap.map((p) => ({ phaseTitle: p.phaseTitle }))}
+              initialCompleted={progress.completedPhases ?? []}
+            />
             <Accordion type="single" collapsible className="w-full space-y-4">
               {roadmapData.roadmap.map((phase, index) => (
                 <Card key={index} className="overflow-hidden">
