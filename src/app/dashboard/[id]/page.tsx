@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { RoadmapActions } from "@/components/dashboard/RoadmapActions";
 
 export const dynamic = "force-dynamic";
 
@@ -39,9 +40,10 @@ export default async function RoadmapDetailPage({ params }: { params: { id: stri
 
   const { data, error } = await supabase
     .from("roadmaps")
-    .select("id, title, data, created_at")
+    .select("id, title, data, created_at, user_id")
     .eq("id", params.id)
-    .single();
+    .eq("user_id", user.id)
+    .maybeSingle();
 
   if (error || !data) {
     notFound();
@@ -51,16 +53,19 @@ export default async function RoadmapDetailPage({ params }: { params: { id: stri
 
   return (
     <main className="mx-auto flex max-w-5xl flex-col gap-6 px-4 pb-16 pt-10 md:px-8">
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex items-start justify-between gap-3">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">{data.title}</h1>
           <p className="text-xs text-muted-foreground">
             Generated {data.created_at ? new Date(data.created_at).toLocaleString() : ""}
           </p>
         </div>
-        <Button asChild variant="outline" size="sm">
-          <Link href="/dashboard">Back to dashboard</Link>
-        </Button>
+        <div className="flex flex-col items-end gap-2">
+          <Button asChild variant="outline" size="sm">
+            <Link href="/dashboard">Back to dashboard</Link>
+          </Button>
+          <RoadmapActions id={data.id} />
+        </div>
       </div>
 
       {!roadmapData.isValid ? (

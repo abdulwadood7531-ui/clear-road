@@ -3,6 +3,7 @@ import { getSupabaseServerClient } from "@/utils/supabase/server";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { DeleteAccountSection } from "@/components/dashboard/DeleteAccountSection";
 
 type RoadmapRow = {
   id: string;
@@ -70,6 +71,10 @@ export default async function DashboardPage() {
           </CardHeader>
         </Card>
       )}
+
+      <div className="mt-8">
+        <DeleteAccountSection />
+      </div>
     </main>
   );
 }
