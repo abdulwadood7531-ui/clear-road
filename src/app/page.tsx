@@ -3,34 +3,7 @@ import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-zinc-50 font-sans text-zinc-900 dark:bg-black dark:text-zinc-50">
-      {/* Navbar */}
-      <header className="border-b bg-white/80 backdrop-blur dark:bg-zinc-950/80">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 md:px-8">
-          <Link href="/" className="flex items-center space-x-2">
-            <span className="h-8 w-8 rounded-full bg-gradient-to-br from-blue-600 to-purple-600" />
-            <span className="text-lg font-semibold tracking-tight">ClearRoad</span>
-          </Link>
-
-          <nav className="flex items-center space-x-4 text-sm">
-            <Link href="#features" className="hidden text-muted-foreground hover:text-foreground sm:inline-block">
-              Features
-            </Link>
-            <Link href="/validate" className="hidden text-muted-foreground hover:text-foreground sm:inline-block">
-              Wizard
-            </Link>
-            <Button variant="ghost" asChild className="hidden sm:inline-flex">
-              <Link href="/login">Login</Link>
-            </Button>
-            <Button asChild size="sm" className="inline-flex">
-              <Link href="/dashboard">Dashboard</Link>
-            </Button>
-          </nav>
-        </div>
-      </header>
-
-      {/* Hero */}
-      <main className="mx-auto flex max-w-5xl flex-col gap-16 px-4 pb-24 pt-16 md:px-8 md:pt-20">
+    <main className="mx-auto flex max-w-5xl flex-col gap-16 px-4 pb-24 pt-16 md:px-8 md:pt-20">
         <section className="grid gap-10 md:grid-cols-[3fr,2fr] md:items-center">
           <div className="space-y-6">
             <h1 className="text-balance text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
@@ -107,6 +80,5 @@ export default function Home() {
           </div>
         </section>
       </main>
-    </div>
   );
 }
